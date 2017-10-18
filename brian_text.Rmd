@@ -1,0 +1,15 @@
+---
+title: "brian_text"
+author: "Brian Gilbert"
+date: "October 18, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+suppressMessages(suppressWarnings(library(RTextTools)))
+```
+
+```{r}
+data("NYTimes")
+```
