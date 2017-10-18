@@ -19,5 +19,3 @@ Are there some topics that tend to include more extreme words?
 ## Brian
 How do the different sentiment dictionaries correlate with each other?
 Attempt to create a classifier for topic code
-
-## Linde
