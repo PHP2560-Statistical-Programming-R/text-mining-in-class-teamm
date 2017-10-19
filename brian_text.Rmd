@@ -12,7 +12,6 @@ suppressMessages(suppressWarnings(library(dplyr)))
 suppressMessages(suppressWarnings(library(tidytext)))
 suppressMessages(suppressWarnings(library(topicmodels)))
 
-
 ```
 
 ```{r}

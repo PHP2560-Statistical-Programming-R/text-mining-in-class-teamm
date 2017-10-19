@@ -1,0 +1,15 @@
+---
+title: "olivia_text_mining"
+author: "Olivia Iles"
+date: "October 19, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(RTextTools)
+data("NYTimes")
+```
