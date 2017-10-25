@@ -161,8 +161,10 @@ ggplot(scores,aes(title.score)) +
 
 This plot shows the frequency of the mean intensities of positive/negative words used in the titles. A higher absolute value indicates greater intensity of an emotion in words for the title, whereas a lower one indicates less intensity. Negative numbers indicate negative emotions whereas positive numbers indicate positive emotions.
 
-Extremeness of Emotional Words Used in NY Times Titles
-------------------------------------------------------
+From this plot, it looks like most of the titles tend to have a negative sentiment. Less of the titles tend to be in the extremes of both types of emotions and in neutral sentiment.
+
+Absolute Intensity of Words Used in NY Times Titles
+---------------------------------------------------
 
 This section looks at just how intense the emotions of the words in NY Times titles are (i.e., it doesn't matter whether the emotions are negative or positive; we are just interested in how extreme these emotions get).
 
@@ -214,10 +216,15 @@ ggplot(scores,aes(title.intensity.score)) +
 
 ![](text_mining_-_AX_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-4-1.png)
 
-How is it different by time?
+Here, it looks like most of the titles do not have an extreme intensity in their sentiment. Rather, they tend to be in the mid to lower range in terms of their sentiment intensity.
+
+Emotions and Intensity Over Time
+--------------------------------
+
+How is does the sentiment of the title differ over time?
 
 ``` r
-############# Get years
+############# Get years and scores
 
 #1. Convert Dates to Strings
 
@@ -271,9 +278,10 @@ scores2$year = (as.numeric(scores2$year))
 scores2 = scores2 %>% 
   mutate(year.num = ifelse(scores2$year<=6, 10-scores2$year, abs(96-scores2$year)))
 scores3$year.num = scores2$year.num
+```
 
-# LINE PLOTS
-
+``` r
+####### Plot Mean Sentiment Scores
 # This plots the sentiment scores
 ggplot(data=scores2, aes(x=year.num,y=year.score)) +
   geom_line(color="steelblue4", linetype="dashed") +
@@ -293,7 +301,9 @@ ggplot(data=scores2, aes(x=year.num,y=year.score)) +
         axis.title.y = element_text(colour="grey20",size=15,angle=90,hjust=.5,vjust=.5,face="plain"))
 ```
 
-![](text_mining_-_AX_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-5-1.png)
+![](text_mining_-_AX_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-6-1.png)
+
+It looks like sentiment tends to decrease until 1998. From 1998 to 2000, sentiment scores increase (i.e., tend to be more positive) but starts decreasing again starting at year 2001. From 2001 to 2003, titles tend to be more negative but they start becoming positive moving forward.
 
 ``` r
 # This plots the intensity scores
@@ -315,4 +325,8 @@ ggplot(data=scores3, aes(x=year.num,y=year.intensity)) +
         axis.title.y = element_text(colour="grey20",size=15,angle=90,hjust=.5,vjust=.5,face="plain"))
 ```
 
-![](text_mining_-_AX_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-5-2.png)
+![](text_mining_-_AX_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-7-1.png)
+
+Now we can look at just the absolute intensity of the sentiment (regardless of whether the words are positive or negative).
+
+Here, we see that the emotional intensity of the titles increases from 1996 to 1998. They decrease until around 2000/2001. Starting from 2001 to 2003, the intensity of the sentiment increases, but they decrease starting from 2003 to 2006. However, it is worth noting that the actual intensity remains lower, indicating that the sentiment intensity of the titles in NY Times do not tend to be high over time.
