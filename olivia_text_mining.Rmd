@@ -9,13 +9,17 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Load libraries and read in data
 ```{r,cache=TRUE}
 library(RTextTools)
 library(tidytext)
 library(stringr)
 library(dplyr)
 data("NYTimes")
+```
 
+Data Cleaning/Housekeeping:
+```{r}
 NYTimes$Title = as.character(NYTimes$Title)
 words = unnest_tokens(NYTimes, word, Title,to_lower=FALSE)
 
@@ -33,6 +37,7 @@ words$word = str_to_lower(words$word)
 sents.nrc = inner_join(words, get_sentiments("nrc"), by="word")
 ```
 
+This 
 ```{r}
 #Now comparing analysis by case
 positives <- sents.nrc %>%
@@ -46,10 +51,12 @@ negatives <- sents.nrc %>%
   filter(sentiment=="negative")
 ```
 
+
+
 ```{r}
 #Statistical analysis
 
-# We want to create a table for use in a prop.test
+# To create a table for use in a prop.test
 create_table <- function(tib) {
   tib$n_not <- tib$case_total-tib$n
   prop_table <- tib[,c(4,6)]
