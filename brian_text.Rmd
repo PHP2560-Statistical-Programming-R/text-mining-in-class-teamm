@@ -8,27 +8,8 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 suppressMessages(suppressWarnings(library(RTextTools)))
-suppressMessages(suppressWarnings(library(dplyr)))
-suppressMessages(suppressWarnings(library(tidytext)))
-suppressMessages(suppressWarnings(library(topicmodels)))
-
 ```
 
 ```{r}
-#data cleaning and joining with sentiment dictionaries
 data("NYTimes")
-NYTimes$Title = as.character(NYTimes$Title)
-words = unnest_tokens(NYTimes, word, Title)
-sents.nrc = inner_join(words, get_sentiments("nrc"), by="word")
-sents.bing = inner_join(words, get_sentiments("bing"), by="word")
 ```
-
-Examine matches
-
-```{r}
-dim(sents.nrc)[1]
-dim(sents.bing)[1]
-```
-
-The NRC dictionary has far more matches in the NYTimes data set.
-
