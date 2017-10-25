@@ -170,3 +170,26 @@ sents.nrc %>%
 ```
 
 The top positive words show a little more variation across capitalization schemes. It is interesting that "president" is treated as a positive word, as this is by far the most frequent positive word in the all-caps data. I wonder if an analysis in which president was removed from the positive words would show an even *stronger* difference than what we've already seen (that all caps titles have fewer positive words).
+
+### Top 10 SENTIMENTS for not all-caps (FALSE) and all-caps (TRUE):
+```{r,echo=FALSE}
+sents.nrc %>%
+  #filter(caps=="FALSE") %>%
+  group_by(caps) %>%
+  count(sentiment) %>%
+ # group_by(caps) %>%
+  top_n(10) %>%
+  ungroup() %>%
+  #mutate(word = reorder(paste(word, sentiment, sep = "__"), n)) %>%
+  # Set up the plot with aes()
+  ggplot(aes(x=sentiment,y=n,fill=caps)) +
+  geom_col(show.legend = FALSE) +
+  scale_x_discrete(labels = function(x) gsub("__.+$", "", x)) +
+  facet_wrap(~ caps, nrow = 2, scales = "free") +
+  coord_flip()
+```
+
+These plots allow us to actually compare the breakdown of sentiment distribution across not caps and all caps headlines.
+
+The most notable differences appear to be that all caps headlines have a visibly higher proportion of fear words and anger words, while not-caps headlines have a visibly higher proportion of sadness, disgust, and joy. To me, this implies that all caps headlines may be used for more specific scenarios (i.e. crisis-related ones that would relate to fear/anger) while not-caps headlines probably encompass a wide range of scenarios.
+
