@@ -4,7 +4,7 @@ author: "Linde Chen"
 output: github_document
 ---
 
-## Introduction and Question:
+## Introduction and Questions:
 
 In the internal dataset: NYTimes, we are given a list of newspaper headlines from 1996-2006. These headlines are categoried into topics from Topic Codes 1-31 and Topic Code 99. However, we are not given information about what these Topic Codes describe. 
 
