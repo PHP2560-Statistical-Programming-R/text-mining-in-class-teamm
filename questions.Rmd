@@ -1,5 +1,5 @@
 ---
-title: "Questions"
+title: "questions"
 author: "Brian Gilbert"
 date: "October 18, 2017"
 output: html_document
@@ -19,10 +19,5 @@ Are there some topics that tend to include more extreme words?
 ## Brian
 How do the different sentiment dictionaries correlate with each other?
 Attempt to create a classifier for topic code
-<<<<<<< HEAD
-=======
 
 ## Linde
-Figure out what the topic codes mean - i.e. which topics do each typically address? 
-Pick a topic from the analysis above and delve deeper. 
->>>>>>> ec8785f4c1312e351d1f9bb38d96c143b15652c4

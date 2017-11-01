@@ -1,0 +1,195 @@
+---
+title: "olivia_text_mining"
+author: "Olivia Iles"
+date: "October 19, 2017"
+output: html_document
+---
+
+###Question: Does the proportion of positive and negative words differ according to whether or not the headline is in all caps?
+###Answer: Let's see:
++ I will use the NYTimes dataset of headlines
++ Will first clean data and create a column for whether that word was all caps
++ Then will join with sentiment data and calculate proportion of negatives/positives for each capitalization scheme
++ If there is a difference, I will determine statistical significance
++ Interpret Results
++ Create visualizations
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Data Cleaning/Housekeeping:
+Load libraries and read in data
+```{r}
+suppressMessages(suppressWarnings(library(RTextTools)))
+suppressMessages(suppressWarnings(library(tidytext)))
+suppressMessages(suppressWarnings(library(stringr)))
+suppressMessages(suppressWarnings(library(dplyr)))
+data("NYTimes")
+```
+
+```{r}
+NYTimes$Title = as.character(NYTimes$Title)
+words = unnest_tokens(NYTimes, word, Title,to_lower=FALSE)
+
+caps_pattern = "^[^a-z]*$"
+words$caps <- str_detect(words$word,caps_pattern)
+
+#Calculate total num of words in this case for later 
+words <- words %>%
+  group_by(caps) %>%
+  mutate(case_total=n()) %>%
+  ungroup()
+
+##Now change to lowercase for sentiment matches
+words$word = str_to_lower(words$word)
+sents.nrc = inner_join(words, get_sentiments("nrc"), by="word")
+```
+
+
+## Initital Calculations
+The following block creates two tibbles: "positives" contains info about the percentage of *positive* words that are in caps versus not caps, and "negatives" contains info about the percentage of *negative* words that are in caps versus not caps
+```{r}
+#Now comparing analysis by case
+positives <- sents.nrc %>%
+  count(caps,sentiment,case_total) %>%
+  mutate(percent = n/case_total) %>%
+  filter(sentiment=="positive")
+
+negatives <- sents.nrc %>%
+  count(caps,sentiment,case_total) %>%
+  mutate(percent = n/case_total) %>%
+  filter(sentiment=="negative")
+
+positives
+negatives
+```
+#### Interpreting initial Calculations:
+CAPS: 6.71% of words are negative, 5.5% of words are positive
+NOT CAPS: 7.98% of words are negative, 6.92% of words are positive
+
+So it appears that the non-caps titles have a higher proportion of words that are negative *and* a higher proportion of words that are positive when compared to the all-caps titles. We will now perform a statistical analysis to determine whether this difference is statistically significant.
+
+## Statisical Tests
+
+```{r}
+# Function to create a table for use in a prop.test
+create_table <- function(tib) {
+  tib$n_not <- tib$case_total-tib$n
+  prop_table <- tib[,c(4,6)]
+  
+  prop_table <- matrix(c(prop_table$n[1],prop_table$n[2],prop_table$n_not[1],prop_table$n_not[2]),ncol=2)
+  rownames(prop_table) <- c("lower","upper")
+  
+  return(prop_table)
+}
+```
+
+### Difference in proportion of positive sentiment words: Chi-Squared Test 
+
+**Ho: All caps and not all caps titles have equal proportions of words with positive sentiments.**
+
+**Ha: All caps and not all caps titles do *not* have equal proportions of words with positive sentiments.**
+
+Run test:
+```{r}
+#Prop test for positives:
+pos_table <- create_table(positives)
+colnames(pos_table) <- c("pos","not pos")
+prop.test(pos_table)
+```
+
+**Conclusion:** 
+Based on our small p-value, I reject the null hypothesis and conclude that there *is* statistically significant evidence of a difference in the proportion of positive words between all-caps and not all-caps titles. Specifically, all-caps titles appear to have a smaller proportion of positive words.
+
+### Difference in proportion of negative sentiment words: Chi-Squared Test 
+
+**Ho: All caps and not all caps titles have equal proportions of words with negative sentiments.**
+
+**Ha: All caps and not all caps titles do *not* have equal proportions of words with negative sentiments.**
+
+Run test:
+```{r}
+#Prop test for negatives
+neg_table <- create_table(negatives)
+colnames(neg_table) <- c("negative","not negative")
+prop.test(neg_table)
+```
+**Conclusion: **
+Based on our small p-value, I reject the null hypothesis and conclude that there *is* statistically significant evidence of a difference in the proportion of positive words between all-caps and not all-caps headlines. Specifically, all-caps headlines appear to have a smaller proportion of negative words.
+
+### Interpreting Results Together
+Based on these two tests, it appears that all-caps headlines actually have a lower proportion of both positive and negative words. This may be because they have more filler words, or more words that are unrecognized by the nrc sentiment library. Or, it could actually be because they are less "sentimental" headlines.
+
+## Visualizations
+I will now create some visualizations to look at a few of the differences between caps and all caps headlines
+
+### Top 10 Negative words for not all-caps (FALSE) and all-caps (TRUE):
+```{r,echo=FALSE}
+#visualize
+library(ggplot2)
+
+levels(sents.nrc$caps) <- c("Normal Capitalization", "All Caps")
+
+sents.nrc %>%
+  filter(sentiment=="negative") %>%
+  count(word,caps) %>%
+  group_by(caps) %>%
+  top_n(10) %>%
+  ungroup() %>%
+  mutate(word = reorder(paste(word, caps, sep = "__"), n)) %>%
+  # Set up the plot with aes()
+  ggplot(aes(x=word,y=n,fill=caps)) +
+  geom_col(show.legend = FALSE) +
+  scale_x_discrete(labels = function(x) gsub("__.+$", "", x)) +
+  facet_wrap(~ caps, nrow = 2, scales = "free") +
+  coord_flip()
+```
+
+The top negative words appear to be pretty similar across all-caps versus normally capitalized headlines. Interestingly, "crisis" does not appear in the normally capitalized top 10 at all, but does appear in the all caps top 10. Perhaps all caps are used more for ~urgent situations~?
+
+Note: the all-caps headlines have several words tied for 10th place, so more than 10 words are displayed on this plot.
+
+
+
+### Top 10 Positive words for not all-caps (FALSE) and all-caps (TRUE):
+```{r,echo=FALSE}
+sents.nrc %>%
+  filter(sentiment=="positive") %>%
+  count(word,caps) %>%
+  group_by(caps) %>%
+  top_n(10) %>%
+  ungroup() %>%
+  mutate(word = reorder(paste(word, caps, sep = "__"), n)) %>%
+  # Set up the plot with aes()
+  ggplot(aes(x=word,y=n,fill=caps)) +
+  geom_col(show.legend = FALSE) +
+  scale_x_discrete(labels = function(x) gsub("__.+$", "", x)) +
+  facet_wrap(~ caps, nrow = 2, scales = "free") +
+  coord_flip()
+```
+
+The top positive words show a little more variation across capitalization schemes. It is interesting that "president" is treated as a positive word, as this is by far the most frequent positive word in the all-caps data. I wonder if an analysis in which president was removed from the positive words would show an even *stronger* difference than what we've already seen (that all caps titles have fewer positive words).
+
+### Top 10 SENTIMENTS for not all-caps (FALSE) and all-caps (TRUE):
+```{r,echo=FALSE}
+sents.nrc %>%
+  #filter(caps=="FALSE") %>%
+  group_by(caps) %>%
+  count(sentiment) %>%
+ # group_by(caps) %>%
+  top_n(10) %>%
+  ungroup() %>%
+  #mutate(word = reorder(paste(word, sentiment, sep = "__"), n)) %>%
+  # Set up the plot with aes()
+  ggplot(aes(x=sentiment,y=n,fill=caps)) +
+  geom_col(show.legend = FALSE) +
+  scale_x_discrete(labels = function(x) gsub("__.+$", "", x)) +
+  facet_wrap(~ caps, nrow = 2, scales = "free") +
+  coord_flip()
+```
+
+These plots allow us to actually compare the breakdown of sentiment distribution across not caps and all caps headlines.
+
+The most notable differences appear to be that all caps headlines have a visibly higher proportion of fear words and anger words, while not-caps headlines have a visibly higher proportion of sadness, disgust, and joy. To me, this implies that all caps headlines may be used for more specific scenarios (i.e. crisis-related ones that would relate to fear/anger) while not-caps headlines probably encompass a wide range of scenarios.
+

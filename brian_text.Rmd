@@ -8,6 +8,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 suppressMessages(suppressWarnings(library(RTextTools)))
+<<<<<<< HEAD
 suppressMessages(suppressWarnings(library(dplyr)))
 suppressMessages(suppressWarnings(library(tidytext)))
 suppressMessages(suppressWarnings(library(ggplot2)))
@@ -158,3 +159,10 @@ table(predict(model, newdata = model.data))
 ```
 
 The model nearly always predicts topic 19, which is the most common topic in the data set, so it is basically useless. This indicates we need a more sophisticated way of measuring accuracy, and a more sophisticated way of estimating the model parameters, if not an entirely new model. These questions are beyond the scope of the current project.
+=======
+```
+
+```{r}
+data("NYTimes")
+```
+>>>>>>> dc8938df9ff0abece56bc1c0c26442858aa1df8b

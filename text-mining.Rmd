@@ -3,6 +3,9 @@ title: "Text Analyis"
 output: github_document
 ---
 
+
+
+
 # Your mission
 
 Perform text analysis.
@@ -14,10 +17,6 @@ Perform sentiment analysis or topic modeling using text analysis methods as demo
 ## Okay, I need even more information.
 
 Do the above. Can't think of a data source?
-
-```{r}
-install.packages("RTextTools")
-```
 
 - `gutenbergr`
 - `AssociatedPress` from the `topicmodels` package
