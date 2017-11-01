@@ -21,6 +21,3 @@ How do the different sentiment dictionaries correlate with each other?
 Attempt to create a classifier for topic code
 
 ## Linde
-1. I will investigate the meaning of the Topic Codes through sentiment analysis. Specifically, I'm interested in the sentiments and words associated with the most positive and mmost negative topics. In this way, I hope to establish what categories these particular Topic Codes stand for. 
-
-2. Then, I will investigate the trend of these sentiments and words, as they are used in this news source, over the span of the NYTimes dataset.

@@ -5,7 +5,7 @@ output: github_document
 
 # Your mission
 
-Perform text analysis.
+Perform your analysis.
 
 ## Okay, I need more information
 

@@ -6,6 +6,7 @@ output: html_document
 ---
 
 ###Question: Does the proportion of positive and negative words differ according to whether or not the headline is in all caps?
+
 ###Answer: Let's see:
 + I will use the NYTimes dataset of headlines
 + Will first clean data and create a column for whether that word was all caps
