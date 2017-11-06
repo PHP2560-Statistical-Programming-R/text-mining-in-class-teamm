@@ -21,7 +21,7 @@ I will use the NYTimes dataset of headlines to calculate the proportion of negat
 **Ha: All caps and not all caps titles do *not* have equal proportions of words with negative sentiments.**
 
 ```{r, echo=FALSE}
-load("test_results/negative.Rda")
+load("olivia_results/negative.Rda")
 neg_results
 ```
 > Note:
@@ -37,7 +37,7 @@ Based on our small p-value, I reject the null hypothesis and conclude that there
 
 **Ha: All caps and not all caps titles do *not* have equal proportions of words with positive sentiments.**
 ```{r, echo=FALSE}
-load("test_results/positive.Rda")
+load("olivia_results/positive.Rda")
 pos_results
 ```
 > Note:
