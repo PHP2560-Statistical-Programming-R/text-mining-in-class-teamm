@@ -32,7 +32,7 @@ top_10_sents <- function(data) {
     coord_flip()
 }
 
-load("data/nyt_data.rda")
+load("data/nyt_data_sents-nrc.rda")
 levels(sents.nrc$caps) <- c("Normal Capitalization", "All Caps")
 
 top_10_words("negative",sents.nrc)

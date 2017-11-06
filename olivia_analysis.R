@@ -55,14 +55,14 @@ run_test <- function(emotion,data) {
 }
 
 #Now actual work:
-load("data/nyt_data.rda")
+load("data/nyt_data_caps.rda")
 words<-add_vars(words_caps)
 sents.nrc <- sent_analysis(words)
 
 pos_results <- run_test("positive",sents.nrc)
 neg_results<- run_test("negative",sents.nrc)
 
-save(sents.nrc,file="data/nyt_data.rda")
+save(sents.nrc,file="data/nyt_data_sents-nrc.rda")
 save(pos_results,file="olivia_results/positive.rda")
 save(neg_results,file="olivia_results/negative.rda")
 
