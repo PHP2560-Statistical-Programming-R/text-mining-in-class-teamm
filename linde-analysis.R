@@ -36,6 +36,8 @@ plot_scores +
 # Topic codes 27 and 30, highlighted in red, appear to reflect the most negative sentiments, 
 # with mean sentiment scores of -2.210526	and -1.916667, respectively.	
 
+ggsave("linde_graphs/unnamed-chunk-8-1.png")
+
 positive_topics = 
   topic_scores %>%
   arrange(desc(mean.score)) %>%
@@ -47,6 +49,8 @@ plot_scores +
 
 # Topic codes 27 and 30, highlighted in red, appear to reflect the most negative sentiments, 
 # with mean sentiment scores of 1.065789 and 0.375000, respectively. 
+
+ggsave("linde_graphs/unnamed-chunk-10-1.png")
 
 word_freq = 
   by_topic %>%
@@ -99,17 +103,20 @@ plot_neg =
   ggplot(death_freq, 
          aes(x = death_freq$year, y = death_freq$freq)) + 
   geom_point(colour = "red") + geom_smooth(colour = "orange", span = 1) +
-  xlab("Year") + ylab("Freqeuncy of (-) Words") 
+  xlab("Year") + ylab("Frequency of (-) Words") 
+
 
 plot_pos = 
   ggplot(win_freq, 
          aes(x = win_freq$year, y = win_freq$freq)) + 
   geom_point(colour = "navy") + geom_smooth(colour = "cornflower blue", span = 1) +
-  xlab("Year") + ylab("Freqeuncy of (+) Words")
+  xlab("Year") + ylab("Frequency of (+) Words")
 
 library(ggplot2)
 library(gridExtra)
 grid.arrange(plot_neg, plot_pos, ncol = 1)
+
+ggsave("linde_graphs/unnamed-chunk-18-1.png")
 
 # Here, we compare the trend of the usage of the most negative and positive words over time. 
 
@@ -123,11 +130,15 @@ grid.arrange(plot_neg, plot_pos, ncol = 1)
 
 plot_neg + facet_wrap(~word)
 
+ggsave("linde_graphs/unnamed-chunk-19-1.png")
+
 
 # Here we break down the frequency of negative words usage in the NYTimes headlines by words. 
 # We observe dramatic movements in usage of the word "death" between the years 2002 and 2006.
 
 plot_pos + facet_wrap(~word)
+
+ggsave("linde_graphs/unnamed-chunk-20-1.png")
 
 # Here we break down the frequency of positive words usage in the NYTimes headlines by words. 
 # It is difficult to draw conclusions and patterns from this graph, as the movement in frequency

@@ -1,10 +1,12 @@
 unlink("data", recursive = TRUE) # where data is stored after clean
 unlink("olivia_results",recursive=TRUE)
 unlink("graph", recursive = TRUE) # where graphs are stores
+unlink("linde_graph", recursive = TRUE) # where graphs are stores
 
 dir.create(file.path("data"), showWarnings = FALSE)
 dir.create(file.path("olivia_results"), showWarnings = FALSE)
 dir.create(file.path("graph"), showWarnings = FALSE)
+dir.create(file.path("linde_graphs"), showWarnings = FALSE)
 
 ## run all scripts
 source("get_data.R")
