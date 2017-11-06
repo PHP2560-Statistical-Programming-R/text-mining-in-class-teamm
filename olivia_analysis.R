@@ -56,7 +56,7 @@ run_test <- function(emotion,data) {
 
 #Now actual work:
 load("data/nyt_data.rda")
-words<-add_vars(words)
+words<-add_vars(words_caps)
 sents.nrc <- sent_analysis(words)
 
 pos_results <- run_test("positive",sents.nrc)
