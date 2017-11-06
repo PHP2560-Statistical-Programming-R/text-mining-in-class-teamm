@@ -1,3 +1,7 @@
+load("data/nyt_data.rda")
+sentiments = inner_join(words, get_sentiments("afinn"), by = "word")
+sentiments$Date = as.Date(as.Date(sentiments$Date, format = "%d-%b-%y"), format = "%y-%b-%d")
+
 by_topic = 
   sentiments %>%
   arrange(Topic.Code)

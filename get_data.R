@@ -6,5 +6,5 @@ get_data <- function() {
 }
 
 source("check_packages.R")
-check_packages(c("RTextTools","tidytext","stringr","dplyr")) #load packages
+check_packages(c("RTextTools","tidytext","stringr","dplyr","tidyverse")) #load packages everyone needs
 get_data()
