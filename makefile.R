@@ -16,13 +16,10 @@ source("clean_data.R")
 source("olivia_analysis.R")
 source("linde-analysis.R")
 source("olivia_vis.R")
-<<<<<<< HEAD
-source("brian_analysis.R")
-=======
 source("anna-analyzeData.R")
 source("anna-graphData.R")
->>>>>>> 7a21ef0aa7d97f394dc20bdde1a64fdd8e440116
 rmarkdown::render("olivia_paper.Rmd", output_format = "html_document")
 rmarkdown::render("linde_paper.Rmd", output_format = "html_document")
 rmarkdown::render("anna_paper.Rmd", output_format = "html_document")
+rmarkdown::render("brian_paper.Rmd", output_format = "html_document")
 

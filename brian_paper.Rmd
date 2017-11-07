@@ -9,6 +9,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 options(digits=3)
+source("brian_analysis.R")
 ```
 
 ## Comparing NRC and Bing
