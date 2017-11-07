@@ -22,7 +22,7 @@ nyt.sent = NYTimes %>%
   summarize(title.score = mean(score))
 
 # SAVE ALL THIS
-save(nyt.sent, "data/nyt_sentimentScores")
+save(nyt.sent, file = "data/nyt_sentimentScores")
 
 ####### INTENSITY #######
 
@@ -39,7 +39,7 @@ nyt.intensity = nyt.sent %>%
   summarize(mean.intensity = mean(intensity))
 
 # SAVE ALL THIS
-save(nyt.intensity, "data/nyt_intensityScores")
+save(nyt.intensity, file = "data/nyt_intensityScores")
 
 ############## PART 2 ##############
 
@@ -99,5 +99,5 @@ year.intensity$year.num = year.sent$year.num
 
 ####### SAVE ALL THE DATA #######
 
-save(year.sent, "data/nyt_yearSentiment")
-save(year.intensity, "data/nyt_yearIntensity")
+save(year.sent, file = "data/nyt_yearSentiment")
+save(year.intensity, file = "data/nyt_yearIntensity")
