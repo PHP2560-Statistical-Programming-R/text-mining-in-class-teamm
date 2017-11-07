@@ -21,5 +21,4 @@ source("anna-graphData.R")
 rmarkdown::render("olivia_paper.Rmd", output_format = "html_document")
 rmarkdown::render("linde_paper.Rmd", output_format = "html_document")
 rmarkdown::render("anna_paper.Rmd", output_format = "html_document")
-rmarkdown::render("brian_paper.Rmd", output_format = "html_document")
 
