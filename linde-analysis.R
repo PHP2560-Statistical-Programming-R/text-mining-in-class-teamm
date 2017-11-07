@@ -1,4 +1,4 @@
-load("data/nyt_data.rda")
+load("data/nyt_words.rda")
 sentiments = inner_join(words, get_sentiments("afinn"), by = "word")
 sentiments$Date = as.Date(as.Date(sentiments$Date, format = "%d-%b-%y"), format = "%y-%b-%d")
 
