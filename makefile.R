@@ -16,10 +16,18 @@ source("clean_data.R")
 source("olivia_analysis.R")
 source("linde-analysis.R")
 source("olivia_vis.R")
+<<<<<<< HEAD
 #source("anna-analyzeData.R")
 #source("anna-graphData.R")
 rmarkdown::render("olivia_paper.Rmd", output_format = "html_document")
 rmarkdown::render("linde_paper.Rmd", output_format = "html_document")
 rmarkdown::render("brian_paper.Rmd", output_format = "html_document")
 #rmarkdown::render("anna_paper.Rmd", output_format = "html_document")
+=======
+source("anna-analyzeData.R")
+rmarkdown::render("olivia_paper.Rmd", output_format = "html_document")
+rmarkdown::render("linde_paper.Rmd", output_format = "html_document")
+rmarkdown::render("anna_paper.Rmd", output_format = "html_document")
+rmarkdown::render("brian_paper.Rmd", output_format = "html_document")
+>>>>>>> f5d39b85f79fe2fecec7fd3736435e6bb7620beb
 
