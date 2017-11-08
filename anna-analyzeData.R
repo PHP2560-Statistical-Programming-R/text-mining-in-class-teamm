@@ -144,8 +144,8 @@ ggsave("anna_graphs/title.intensity_graph.png")
 ggplot(data=mean.year.sent, aes(x=year.num,y=year.sent)) +
   geom_line(color="steelblue4", linetype="dashed") +
   labs(x = "Year", y = "Mean Score") +
-  scale_x_continuous(breaks = pretty(year.sent$year.num, n = 10),labels=c(1996:2006)) +
-  scale_y_continuous(breaks = pretty(year.sent$year.score, n = 8)) +
+  scale_x_continuous(breaks = pretty(mean.year.sent$year.num, n = 10),labels=c(1996:2006)) +
+  scale_y_continuous(breaks = pretty(mean.year.sent$year.score, n = 8)) +
   geom_point(size=3,color="steelblue4") +
   ggtitle("NY Times Mean Title Sentiment Scores Over Time") +
   theme(plot.title = element_text(color="black", face="bold", size=18,hjust = 0.5)) +
