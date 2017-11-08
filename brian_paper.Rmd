@@ -20,7 +20,7 @@ First, we see that NRC yields `r num.nrc` matches while Bing yields `r num.bing`
 
 The NRC dictionary has significantly more matches in the NYTimes data set. How do the words matched by each dataset compare with respect to length?
 
-![Word length by dictionary] ("graph/brianp1")
+![*Fig. 1*](graph/brianp1.png)
 
 The distributions appear identical.
 
